@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+const API_BASE = process.env.REACT_APP_API_URL || '';
+
 const AIChatBox = ({ weather, open, onClose }) => {
   const [messages, setMessages] = useState([
     { role: 'assistant', text: '👋 Hi! Ask me anything about the weather!' }
@@ -20,7 +22,7 @@ const AIChatBox = ({ weather, open, onClose }) => {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/weather/chat', {
+      const res = await fetch(`${API_BASE}/api/weather/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -50,7 +52,6 @@ const AIChatBox = ({ weather, open, onClose }) => {
       borderRadius: 16, display: 'flex', flexDirection: 'column',
       boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
     }}>
-      {/* Header */}
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '14px 16px', borderBottom: '1px solid #1e1e2e',
@@ -74,7 +75,6 @@ const AIChatBox = ({ weather, open, onClose }) => {
         }}>✕</button>
       </div>
 
-      {/* Messages */}
       <div style={{ flex: 1, overflowY: 'auto', padding: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
         {messages.map((m, i) => (
           <div key={i} style={{
@@ -103,7 +103,6 @@ const AIChatBox = ({ weather, open, onClose }) => {
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
       <div style={{
         padding: 12, borderTop: '1px solid #1e1e2e',
         display: 'flex', gap: 8,

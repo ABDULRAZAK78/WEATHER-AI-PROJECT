@@ -1,5 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 
+const API_BASE = process.env.REACT_APP_API_URL || '';
+
 const useAIInsight = () => {
   const [insight, setInsight] = useState('');
   const [loading, setLoading] = useState(false);
@@ -12,7 +14,7 @@ const useAIInsight = () => {
     setInsight(''); setTyping(false); setLoading(true);
 
     try {
-      const res = await fetch('/api/weather/ai-insight', {
+      const res = await fetch(`${API_BASE}/api/weather/ai-insight`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
