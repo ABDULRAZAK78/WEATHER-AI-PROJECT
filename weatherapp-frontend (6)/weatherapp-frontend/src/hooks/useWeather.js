@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 
+const API_BASE = process.env.REACT_APP_API_URL || '';
+
 const useWeather = () => {
   const [weather,     setWeather]     = useState(null);
   const [history,     setHistory]     = useState([]);
@@ -11,7 +13,7 @@ const useWeather = () => {
     if (!city?.trim()) return null;
     setLoading(true); setError(''); setWeather(null);
     try {
-      const res = await axios.get(`/api/weather/${encodeURIComponent(city.trim())}`);
+      const res = await axios.get(`${API_BASE}/api/weather/${encodeURIComponent(city.trim())}`);
       setWeather(res.data);
       return res.data;
     } catch (err) {
@@ -23,7 +25,7 @@ const useWeather = () => {
 
   const fetchHistory = useCallback(async () => {
     try {
-      const res = await axios.get('/api/weather/history');
+      const res = await axios.get(`${API_BASE}/api/weather/history`);
       setHistory(res.data || []);
     } catch { setHistory([]); }
   }, []);
