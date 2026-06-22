@@ -1,0 +1,23 @@
+package com.weather.weatherapp.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDateTime;
+
+@Data
+@Entity
+@Table(name = "weather_data")
+public class WeatherData {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String city;
+    private double temperature;
+    private double humidity;
+    @Column(name = "weather_condition")
+    private String condition;
+    private String aiAdvice;
+    private LocalDateTime fetchedAt;
+}
